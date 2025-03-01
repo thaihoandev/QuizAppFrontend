@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react"
+import UserDropdown from "./UserDropdown"
 
 const Navbar = () => {
     return (
@@ -537,7 +538,7 @@ const Navbar = () => {
                                                 </h6>
                                                 <small className="mb-1 d-block text-body">
                                                     July monthly financial
-                                                    report is generated{' '}
+                                                    report is generated{" "}
                                                 </small>
                                                 <small className="text-body-secondary">
                                                     3 days ago
@@ -690,121 +691,7 @@ const Navbar = () => {
                     </li>
                     {/* <!--/ Notification -->
       <!-- User --> */}
-                    <li className="nav-item navbar-dropdown dropdown-user dropdown">
-                        <a
-                            className="nav-link dropdown-toggle hide-arrow p-0"
-                            href="javascript:void(0);"
-                            data-bs-toggle="dropdown"
-                        >
-                            <div className="avatar avatar-online">
-                                <img
-                                    src="../../assets/img/avatars/1.png"
-                                    className="rounded-circle"
-                                />
-                            </div>
-                        </a>
-                        <ul className="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-account-settings-account.html"
-                                >
-                                    <div className="d-flex">
-                                        <div className="flex-shrink-0 me-3">
-                                            <div className="avatar avatar-online">
-                                                <img
-                                                    src="../../assets/img/avatars/1.png"
-                                                    className="w-px-40 h-auto rounded-circle"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="flex-grow-1">
-                                            <h6 className="mb-0">John Doe</h6>
-                                            <small className="text-body-secondary">
-                                                Admin
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <div className="dropdown-divider my-1"></div>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-profile-user.html"
-                                >
-                                    {' '}
-                                    <i className="icon-base bx bx-user icon-md me-3"></i>
-                                    <span>My Profile</span>{' '}
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-account-settings-account.html"
-                                >
-                                    {' '}
-                                    <i className="icon-base bx bx-cog icon-md me-3"></i>
-                                    <span>Settings</span>{' '}
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-account-settings-billing.html"
-                                >
-                                    <span className="d-flex align-items-center align-middle">
-                                        <i className="flex-shrink-0 icon-base bx bx-credit-card icon-md me-3"></i>
-                                        <span className="flex-grow-1 align-middle">
-                                            Billing Plan
-                                        </span>
-                                        <span className="flex-shrink-0 badge rounded-pill bg-danger">
-                                            4
-                                        </span>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <div className="dropdown-divider my-1"></div>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-pricing.html"
-                                >
-                                    {' '}
-                                    <i className="icon-base bx bx-dollar icon-md me-3"></i>
-                                    <span>Pricing</span>{' '}
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="pages-faq.html"
-                                >
-                                    {' '}
-                                    <i className="icon-base bx bx-help-circle icon-md me-3"></i>
-                                    <span>FAQ</span>{' '}
-                                </a>
-                            </li>
-                            <li>
-                                <div className="dropdown-divider my-1"></div>
-                            </li>
-                            <li>
-                                <a
-                                    className="dropdown-item"
-                                    href="auth-login-cover.html"
-                                    target="_blank"
-                                >
-                                    {' '}
-                                    <i className="icon-base bx bx-power-off icon-md me-3"></i>
-                                    <span>Log Out</span>{' '}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <UserDropdown />
                     {/* <!--/ User --> */}
                 </ul>
             </div>

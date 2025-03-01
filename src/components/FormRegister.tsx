@@ -1,44 +1,41 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { registerSchema } from '@/schemas/authSchema'
-import TextInput from '@/components/formFields/InputField'
-import PasswordInput from '@/components/formFields/PasswordField'
-import { Link, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
-import { AuthContext } from '@/context/AuthContext' // Import AuthContext
+import {useForm} from "react-hook-form"
+import {yupResolver} from "@hookform/resolvers/yup"
+import {registerSchema} from "@/schemas/authSchema"
+import TextInput from "@/components/formFields/InputField"
+import PasswordInput from "@/components/formFields/PasswordField"
+import {Link, useNavigate} from "react-router-dom"
+import {useState} from "react"
+import {useAuth} from "@/hooks/useAuth"
+import {useGoogleLogin} from "@react-oauth/google"
 
 const FormRegister = () => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
-    
-    // Lấy `register` từ AuthContext
-    const authContext = useContext(AuthContext)
-    if (!authContext) {
-        throw new Error("AuthContext not found. Make sure AuthProvider is wrapping the app.")
-    }
-    const { register: registerUser } = authContext
+    const [errorMessage, setErrorMessage] = useState("")
 
+    // ✅ Lấy hàm register từ Zustand thay vì từ Context
+    const {register: registerUser, loginWithGoogle} = useAuth()
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm({
         resolver: yupResolver(registerSchema),
+    })
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: (tokenResponse) => loginWithGoogle(tokenResponse),
+        onError: () => console.log("Google Login Failed"),
     })
 
     // Xử lý submit form đăng ký
     const onSubmit = async (data: any) => {
         setLoading(true)
-        setErrorMessage('')
+        setErrorMessage("")
 
         try {
-            await registerUser({
-                username: data.username,
-                email: data.email,
-                password: data.password,
-            })
-            navigate('/') // Chuyển hướng sau khi đăng ký thành công
+            await registerUser(data.username, data.email, data.password)
+            navigate("/") // Chuyển hướng sau khi đăng ký thành công
         } catch (error) {
             setErrorMessage(error as string)
         } finally {
@@ -53,10 +50,16 @@ const FormRegister = () => {
                 <p className="mb-6">Make your app management easy and fun!</p>
 
                 {/* Hiển thị lỗi nếu có */}
-                {errorMessage && <p className="text-danger text-center">{errorMessage}</p>}
+                {errorMessage && (
+                    <p className="text-danger text-center">{errorMessage}</p>
+                )}
 
                 {/* Form đăng ký */}
-                <form id="formAuthentication" className="mb-6" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                    id="formAuthentication"
+                    className="mb-6"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     {/* Username */}
                     <TextInput
                         label="Username"
@@ -89,27 +92,34 @@ const FormRegister = () => {
                     />
 
                     {/* Điều khoản */}
-                    <div className="my-7 form-control-validation">
+                    <div className="my-4 form-control-validation ">
                         <div className="form-check">
                             <input
                                 className="form-check-input"
                                 type="checkbox"
                                 id="terms-conditions"
-                                {...register('terms')}
+                                {...register("terms")}
+                                required
                             />
-                            <label className="form-check-label" htmlFor="terms-conditions">
-                                I agree to{' '}
+                            <label
+                                className="form-check-label"
+                                htmlFor="terms-conditions"
+                            >
+                                I agree to{" "}
                                 <a href="#" onClick={(e) => e.preventDefault()}>
                                     privacy policy & terms
                                 </a>
                             </label>
-                            {errors.terms && <p className="text-danger">{errors.terms?.message}</p>}
                         </div>
                     </div>
 
                     {/* Submit Button */}
-                    <button type="submit" className="btn btn-primary d-grid w-100" disabled={loading}>
-                        {loading ? 'Signing up...' : 'Sign up'}
+                    <button
+                        type="submit"
+                        className="btn btn-primary d-grid w-100"
+                        disabled={loading}
+                    >
+                        {loading ? "Signing up..." : "Sign up"}
                     </button>
                 </form>
 
@@ -127,17 +137,21 @@ const FormRegister = () => {
 
                 {/* Social Login */}
                 <div className="d-flex justify-content-center">
-                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-facebook me-1_5">
-                        <i className="icon-base bx bxl-facebook-circle icon-20px"></i>
+                    {/* <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-facebook me-2">
+                        <i className="icon-base bx bxl-facebook-circle icon-40px"></i>
                     </a>
-                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-twitter me-1_5">
-                        <i className="icon-base bx bxl-twitter icon-20px"></i>
+                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-twitter me-2">
+                        <i className="icon-base bx bxl-twitter icon-40px"></i>
                     </a>
-                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-github me-1_5">
-                        <i className="icon-base bx bxl-github icon-20px"></i>
-                    </a>
-                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-google-plus">
-                        <i className="icon-base bx bxl-google icon-20px"></i>
+                    <a href="#" onClick={(e) => e.preventDefault()} className="btn btn-sm btn-icon rounded-circle btn-text-github me-2">
+                        <i className="icon-base bx bxl-github icon-40px"></i>
+                    </a> */}
+                    <a
+                        href="#"
+                        onClick={() => googleLogin()}
+                        className="btn btn-sm btn-icon rounded-circle btn-text-google-plus"
+                    >
+                        <i className="icon-base bx bxl-google icon-40px"></i>
                     </a>
                 </div>
             </div>

@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import {useEffect} from "react"
 
 const Home = () => {
     useEffect(() => {
-        const script = document.createElement('script')
-        script.src = '/assets/js/app-academy-course.js'
+        const script = document.createElement("script")
+        script.src = "/assets/js/app-academy-course.js"
         script.async = true
         document.body.appendChild(script)
 
@@ -30,7 +30,7 @@ const Home = () => {
                             <span className="card-title mb-4 px-md-12 h4">
                                 Education, talents, and career
                                 <br />
-                                opportunities.{' '}
+                                opportunities.{" "}
                                 <span className="text-primary text-nowrap">
                                     All in one place
                                 </span>
@@ -120,7 +120,7 @@ const Home = () => {
                                                 Web
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center fw-medium gap-1 mb-0">
-                                                4.4{' '}
+                                                4.4{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
@@ -145,7 +145,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -160,19 +160,19 @@ const Home = () => {
                                                 className="w-100 btn btn-label-secondary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <i className="icon-base bx bx-rotate-right icon-sm align-middle scaleX-n1-rtl me-2"></i>
-                                                <span>Start Over</span>{' '}
+                                                <span>Start Over</span>{" "}
                                             </a>
                                             <a
                                                 className="w-100 btn btn-label-primary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <span className="me-2">
                                                     Continue
                                                 </span>
-                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{' '}
+                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{" "}
                                             </a>
                                         </div>
                                     </div>
@@ -195,12 +195,12 @@ const Home = () => {
                                                 UI/UX
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center fw-medium gap-1 mb-0">
-                                                4.2{' '}
+                                                4.2{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
                                                 <span className="fw-normal">
-                                                    {' '}
+                                                    {" "}
                                                     (424)
                                                 </span>
                                             </p>
@@ -221,7 +221,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -236,19 +236,19 @@ const Home = () => {
                                                 className="w-100 btn btn-label-secondary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <i className="icon-base bx bx-rotate-right icon-sm align-middle me-2"></i>
-                                                <span>Start Over</span>{' '}
+                                                <span>Start Over</span>{" "}
                                             </a>
                                             <a
                                                 className="w-100 btn btn-label-primary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <span className="me-2">
                                                     Continue
                                                 </span>
-                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{' '}
+                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{" "}
                                             </a>
                                         </div>
                                     </div>
@@ -271,12 +271,12 @@ const Home = () => {
                                                 SEO
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center fw-medium gap-1 mb-0">
-                                                5{' '}
+                                                5{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
                                                 <span className="fw-normal">
-                                                    {' '}
+                                                    {" "}
                                                     (12)
                                                 </span>
                                             </p>
@@ -298,7 +298,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -313,19 +313,19 @@ const Home = () => {
                                                 className="w-100 btn btn-label-secondary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <i className="icon-base bx bx-rotate-right icon-sm align-middle me-2"></i>
-                                                <span>Start Over</span>{' '}
+                                                <span>Start Over</span>{" "}
                                             </a>
                                             <a
                                                 className="w-100 btn btn-label-primary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <span className="me-2">
                                                     Continue
                                                 </span>
-                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{' '}
+                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{" "}
                                             </a>
                                         </div>
                                     </div>
@@ -348,12 +348,12 @@ const Home = () => {
                                                 Music
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center gap-1 mb-0">
-                                                3.8{' '}
+                                                3.8{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
                                                 <span className="fw-normal">
-                                                    {' '}
+                                                    {" "}
                                                     (634)
                                                 </span>
                                             </p>
@@ -375,7 +375,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -390,19 +390,19 @@ const Home = () => {
                                                 className="w-100 btn btn-label-secondary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <i className="icon-base bx bx-rotate-right icon-sm align-middle me-2"></i>
-                                                <span>Start Over</span>{' '}
+                                                <span>Start Over</span>{" "}
                                             </a>
                                             <a
                                                 className="w-100 btn btn-label-primary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <span className="me-2">
                                                     Continue
                                                 </span>
-                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{' '}
+                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{" "}
                                             </a>
                                         </div>
                                     </div>
@@ -425,12 +425,12 @@ const Home = () => {
                                                 Painting
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center gap-1 mb-0">
-                                                4.7{' '}
+                                                4.7{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
                                                 <span className="fw-normal">
-                                                    {' '}
+                                                    {" "}
                                                     (34)
                                                 </span>
                                             </p>
@@ -452,7 +452,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -489,12 +489,12 @@ const Home = () => {
                                                 UI/UX
                                             </span>
                                             <p className="d-flex align-items-center justify-content-center gap-1 mb-0">
-                                                3.6{' '}
+                                                3.6{" "}
                                                 <span className="text-warning">
                                                     <i className="icon-base bx bxs-star me-1 mb-1_5"></i>
                                                 </span>
                                                 <span className="fw-normal">
-                                                    {' '}
+                                                    {" "}
                                                     (2.5k)
                                                 </span>
                                             </p>
@@ -515,7 +515,7 @@ const Home = () => {
                                         </p>
                                         <div
                                             className="progress mb-4"
-                                            style={{ height: '8px' }}
+                                            style={{height: "8px"}}
                                         >
                                             <div
                                                 className="progress-bar w-25"
@@ -530,19 +530,19 @@ const Home = () => {
                                                 className="w-100 btn btn-label-secondary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <i className="icon-base bx bx-rotate-right icon-sm align-middle me-2"></i>
-                                                <span>Start Over</span>{' '}
+                                                <span>Start Over</span>{" "}
                                             </a>
                                             <a
                                                 className="w-100 btn btn-label-primary d-flex align-items-center"
                                                 href="app-academy-course-details.html"
                                             >
-                                                {' '}
+                                                {" "}
                                                 <span className="me-2">
                                                     Continue
                                                 </span>
-                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{' '}
+                                                <i className="icon-base bx bx-chevron-right icon-sm lh-1 scaleX-n1-rtl"></i>{" "}
                                             </a>
                                         </div>
                                     </div>

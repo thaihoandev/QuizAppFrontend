@@ -1,32 +1,33 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { loginSchema } from '@/schemas/authSchema'
-import InputField from '@/components/formFields/InputField'
-import PasswordField from '@/components/formFields/PasswordField'
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '@/context/AuthContext'
-import { useContext, useState } from 'react'
+import {useForm} from "react-hook-form"
+import {yupResolver} from "@hookform/resolvers/yup"
+import {loginSchema} from "@/schemas/authSchema"
+import InputField from "@/components/formFields/InputField"
+import PasswordField from "@/components/formFields/PasswordField"
+import {Link, useNavigate} from "react-router-dom"
+import {useState} from "react"
+import {useAuth} from "@/hooks/useAuth"
 
 const FormLogin = () => {
-    const { login } = useContext(AuthContext)!
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const {login} = useAuth()
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {errors},
     } = useForm({
         resolver: yupResolver(loginSchema),
     })
 
     const onSubmit = async (data: any) => {
         setLoading(true)
-        setErrorMessage('')
+        setErrorMessage("")
         try {
-            await login(data.username, data.password) //  Gọi API
-            navigate('/') // Chuyển hướng khi thành công
+            await login(data.username, data.password)
+            navigate("/") // Chuyển hướng khi đăng nhập thành công
         } catch (error) {
             setErrorMessage(error as string)
         } finally {
@@ -37,7 +38,7 @@ const FormLogin = () => {
     return (
         <div className="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
             <div className="w-px-400 mx-auto mt-sm-12 mt-8">
-                <h4 className="mb-1">Welcome to Sneat! 👋</h4>
+                <h4 className="mb-1">Welcome to KKUN QUIZ! 👋</h4>
                 <p className="mb-6">
                     Please sign in to your account and start the adventure
                 </p>
@@ -77,7 +78,7 @@ const FormLogin = () => {
                                     className="form-check-input"
                                     type="checkbox"
                                     id="remember-me"
-                                    {...register('rememberMe')}
+                                    {...register("rememberMe")}
                                 />
                                 <label
                                     className="form-check-label"
@@ -98,14 +99,14 @@ const FormLogin = () => {
                         className="btn btn-primary d-grid w-100"
                         disabled={loading}
                     >
-                        {loading ? 'Signing in...' : 'Sign in'}
+                        {loading ? "Signing in..." : "Sign in"}
                     </button>
                 </form>
 
                 {/* Register */}
                 <p className="text-center">
                     <span>New on our platform?</span>
-                    <Link to={"/register"} >
+                    <Link to={"/register"}>
                         <span> Create an account</span>
                     </Link>
                 </p>

@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import {useEffect} from "react"
 
 const Header = () => {
     useEffect(() => {
-        const script = document.createElement('script')
+        const script = document.createElement("script")
         script.async = true
         document.body.appendChild(script)
 
