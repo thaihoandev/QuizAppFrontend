@@ -24,9 +24,16 @@ const FormRegister = () => {
     })
 
     const googleLogin = useGoogleLogin({
-        onSuccess: (tokenResponse) => loginWithGoogle(tokenResponse),
+        onSuccess: async (tokenResponse) => {
+            try {
+                await loginWithGoogle(tokenResponse);
+                navigate("/"); // Chuyển hướng sau khi đăng nhập thành công
+            } catch (error) {
+                console.error("Google Login Failed:", error);
+            }
+        },
         onError: () => console.log("Google Login Failed"),
-    })
+    });
 
     // Xử lý submit form đăng ký
     const onSubmit = async (data: any) => {

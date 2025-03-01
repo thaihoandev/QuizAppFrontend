@@ -79,7 +79,6 @@ export const useAuthStore = create<AuthState>()(
 
                     // Nhận JWT từ backend
                     const userData = response
-                    console.log("userData",userData);
                     
                     set({user: userData})
                     axios.defaults.headers.common["Authorization"] =
