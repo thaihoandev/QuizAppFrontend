@@ -1,6 +1,6 @@
-import React, {useEffect} from "react"
-import {Link, Outlet} from "react-router-dom"
-import "@/assets/vendor/css/pages/page-auth.css"
+import React, {useEffect} from "react";
+import {Link, Outlet} from "react-router-dom";
+import "@/assets/vendor/css/pages/page-auth.css";
 const AuthLayout = () => {
     return (
         <div className="authentication-wrapper authentication-cover">
@@ -109,7 +109,7 @@ const AuthLayout = () => {
             {/* <!-- /Logo --> */}
             <Outlet />
         </div>
-    )
-}
+    );
+};
 
-export default AuthLayout
+export default AuthLayout;

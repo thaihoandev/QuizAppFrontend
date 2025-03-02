@@ -1,13 +1,13 @@
-import React, {useState} from "react"
-import {UseFormRegister} from "react-hook-form"
+import React, {useState} from "react";
+import {UseFormRegister} from "react-hook-form";
 
 interface PasswordFieldProps {
-    label: string
-    id: string
-    name: string
-    placeholder?: string
-    register: UseFormRegister<any>
-    error?: string
+    label: string;
+    id: string;
+    name: string;
+    placeholder?: string;
+    register: UseFormRegister<any>;
+    error?: string;
 }
 
 const PasswordField: React.FC<PasswordFieldProps> = ({
@@ -18,7 +18,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
     register,
     error,
 }) => {
-    const [showPassword, setShowPassword] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className="form-password-toggle form-control-validation position-relative pb-5">
@@ -46,7 +46,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
                 {error}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default PasswordField
+export default PasswordField;

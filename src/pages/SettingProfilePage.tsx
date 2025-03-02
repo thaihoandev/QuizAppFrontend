@@ -1,18 +1,18 @@
-import EditableField from "@/components/formFields/EditableField"
-import React, {useState} from "react"
-import NavigationMenuProfile from "@/components/NavigationMenuProfile"
+import EditableField from "@/components/formFields/EditableField";
+import React, {useState} from "react";
+import NavigationMenuProfile from "@/components/NavigationMenuProfile";
 
 const SettingProfilePage = () => {
-    const [selectedAvatar, setSelectedAvatar] = useState(1)
+    const [selectedAvatar, setSelectedAvatar] = useState(1);
     const testMenuItems = [
         {path: "/settings", icon: "bx-cog", label: "Settings"},
         {path: "/change-password", icon: "bx-cog", label: "Change password"},
-    ]
+    ];
     // Callback để xử lý thay đổi giá trị từ EditableField
     const handleFieldChange = (fieldName: string, newValue: string) => {
-        console.log(`Field ${fieldName} updated to: ${newValue}`)
+        console.log(`Field ${fieldName} updated to: ${newValue}`);
         // Bạn có thể thêm logic để lưu giá trị vào state hoặc API tại đây
-    }
+    };
 
     return (
         <div
@@ -270,7 +270,7 @@ const SettingProfilePage = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SettingProfilePage
+export default SettingProfilePage;

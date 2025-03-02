@@ -1,14 +1,14 @@
-import React from "react"
-import {UseFormRegister} from "react-hook-form"
+import React from "react";
+import {UseFormRegister} from "react-hook-form";
 
 interface InputFieldProps {
-    label: string
-    id: string
-    name: string
-    type?: string
-    placeholder?: string
-    register: UseFormRegister<any>
-    error?: string
+    label: string;
+    id: string;
+    name: string;
+    type?: string;
+    placeholder?: string;
+    register: UseFormRegister<any>;
+    error?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -36,7 +36,7 @@ const InputField: React.FC<InputFieldProps> = ({
                 {error}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default InputField
+export default InputField;

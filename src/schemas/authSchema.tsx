@@ -1,4 +1,4 @@
-import * as yup from "yup"
+import * as yup from "yup";
 
 export const loginSchema = yup.object().shape({
     username: yup
@@ -10,7 +10,7 @@ export const loginSchema = yup.object().shape({
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
     rememberMe: yup.boolean(),
-})
+});
 
 export const registerSchema = yup.object().shape({
     username: yup
@@ -25,7 +25,7 @@ export const registerSchema = yup.object().shape({
     terms: yup
         .boolean()
         .oneOf([true], "You must accept the terms and conditions"),
-})
+});
 
 export const changePasswordschema = yup.object().shape({
     currentPassword: yup.string().required("Vui lòng nhập mật khẩu hiện tại"),
@@ -40,4 +40,4 @@ export const changePasswordschema = yup.object().shape({
             "Mật khẩu xác nhận không khớp",
         )
         .required("Vui lòng xác nhận mật khẩu"),
-})
+});

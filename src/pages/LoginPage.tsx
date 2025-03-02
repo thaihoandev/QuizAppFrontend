@@ -1,5 +1,5 @@
-import FormLogin from "@/components/FormLogin"
-import React from "react"
+import FormLogin from "@/components/FormLogin";
+import React from "react";
 
 const LoginPage = () => {
     return (
@@ -22,7 +22,7 @@ const LoginPage = () => {
                 <FormLogin />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default LoginPage
+export default LoginPage;

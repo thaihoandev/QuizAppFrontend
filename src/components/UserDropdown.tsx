@@ -1,15 +1,15 @@
-import React from "react"
-import {Link, useNavigate} from "react-router-dom"
-import {useAuth} from "@/hooks/useAuth"
+import React from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useAuth} from "@/hooks/useAuth";
 
 const UserDropdown = () => {
-    const navigate = useNavigate()
-    const {user, logout} = useAuth() // Lấy thông tin user và hàm logout từ Zustand
+    const navigate = useNavigate();
+    const {user, logout} = useAuth(); // Lấy thông tin user và hàm logout từ Zustand
 
     const handleLogout = () => {
-        logout() // Xóa trạng thái user trong Zustand
-        navigate("/login")
-    }
+        logout(); // Xóa trạng thái user trong Zustand
+        navigate("/login");
+    };
 
     return (
         <li className="nav-item navbar-dropdown dropdown-user dropdown">
@@ -20,9 +20,13 @@ const UserDropdown = () => {
             >
                 <div className="avatar avatar-online">
                     <img
-                        src="/assets/img/avatars/1.png"
+                        src={
+                            user?.avatar
+                                ? user.avatar
+                                : "/assets/img/avatars/unknown.jpg"
+                        }
                         className="rounded-circle"
-                        alt="User Avatar"
+                        alt={user?.name}
                     />
                 </div>
             </a>
@@ -33,19 +37,23 @@ const UserDropdown = () => {
                             <div className="flex-shrink-0 me-3">
                                 <div className="avatar avatar-online">
                                     <img
-                                        src="/assets/img/avatars/1.png"
+                                        src={
+                                            user?.avatar
+                                                ? user.avatar
+                                                : "/assets/img/avatars/unknown.jpg"
+                                        }
                                         className="w-px-40 h-auto rounded-circle"
-                                        alt="User Avatar"
+                                        alt={user?.name || "Unknown"}
                                     />
                                 </div>
                             </div>
                             <div className="flex-grow-1">
                                 <h6 className="mb-0">
-                                    {user?.username || "Guest"}
+                                    {user?.name || "Guest"}
                                 </h6>{" "}
                                 {/* ✅ Hiển thị username */}
                                 <small className="text-body-secondary">
-                                    Admin
+                                    {user?.username}
                                 </small>
                             </div>
                         </div>
@@ -92,7 +100,7 @@ const UserDropdown = () => {
                 </li>
             </ul>
         </li>
-    )
-}
+    );
+};
 
-export default UserDropdown
+export default UserDropdown;

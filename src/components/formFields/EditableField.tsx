@@ -1,16 +1,16 @@
-import React, {useState} from "react"
-import {Modal, Button, Tooltip, OverlayTrigger} from "react-bootstrap"
-import {useForm} from "react-hook-form"
-import {yupResolver} from "@hookform/resolvers/yup"
-import {getFieldValidationSchema} from "@/schemas/fieldSchema"
-import "bootstrap/dist/css/bootstrap.min.css"
+import React, {useState} from "react";
+import {Modal, Button, Tooltip, OverlayTrigger} from "react-bootstrap";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {getFieldValidationSchema} from "@/schemas/fieldSchema";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface EditableFieldProps {
-    label: string
-    initialValue: string
-    fieldName: string
-    fieldType?: "text" | "phoneNumber" | "email"
-    onValueChange?: (fieldName: string, newValue: string) => void
+    label: string;
+    initialValue: string;
+    fieldName: string;
+    fieldType?: "text" | "phoneNumber" | "email";
+    onValueChange?: (fieldName: string, newValue: string) => void;
 }
 
 const EditableField: React.FC<EditableFieldProps> = ({
@@ -20,25 +20,25 @@ const EditableField: React.FC<EditableFieldProps> = ({
     fieldType = "text",
     onValueChange,
 }) => {
-    const [value, setValue] = useState(initialValue)
-    const [showModal, setShowModal] = useState(false)
+    const [value, setValue] = useState(initialValue);
+    const [showModal, setShowModal] = useState(false);
 
-    const schema = getFieldValidationSchema(fieldType)
+    const schema = getFieldValidationSchema(fieldType);
 
     const {
         register,
         handleSubmit,
         formState: {errors},
-    } = useForm({resolver: yupResolver(schema)})
+    } = useForm({resolver: yupResolver(schema)});
 
-    const handleEditClick = () => setShowModal(true)
+    const handleEditClick = () => setShowModal(true);
     const handleSave = (data: any) => {
-        setValue(data.newValue)
-        setShowModal(false)
+        setValue(data.newValue);
+        setShowModal(false);
         if (onValueChange) {
-            onValueChange(fieldName, data.newValue)
+            onValueChange(fieldName, data.newValue);
         }
-    }
+    };
 
     return (
         <div className="col-md-6 d-flex justify-content-center align-items-center flex-column">
@@ -115,7 +115,7 @@ const EditableField: React.FC<EditableFieldProps> = ({
                 </Modal.Footer>
             </Modal>
         </div>
-    )
-}
+    );
+};
 
-export default EditableField
+export default EditableField;

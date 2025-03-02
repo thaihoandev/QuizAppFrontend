@@ -57,4 +57,4 @@ window.isRtl=window.Helpers.isRtl(),window.isDarkStyle=window.Helpers.isDarkStyl
                       <small class="text-body-secondary">${e.subtitle}</small>
                     </div>
                   </a>
-                `}}}),t}})}document.addEventListener("keydown",e=>{(e.ctrlKey||e.metaKey)&&"k"===e.key&&(e.preventDefault(),document.querySelector(".aa-DetachedSearchButton").click())}),document.documentElement.querySelector("#autocomplete")&&loadSearchData();
+                `}}}),t}})}

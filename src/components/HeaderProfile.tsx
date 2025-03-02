@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 const HeaderProfile = () => {
     return (
@@ -54,7 +54,7 @@ const HeaderProfile = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default HeaderProfile
+export default HeaderProfile;

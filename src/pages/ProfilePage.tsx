@@ -1,13 +1,13 @@
-import NavigationMenuProfile from "@/components/NavigationMenuProfile"
-import "@/assets/vendor/css/pages/page-profile.css"
-import HeaderProfile from "@/components/HeaderProfile"
+import NavigationMenuProfile from "@/components/NavigationMenuProfile";
+import "@/assets/vendor/css/pages/page-profile.css";
+import HeaderProfile from "@/components/HeaderProfile";
 const ProfilePage = () => {
     const profileMenuItems = [
         {path: "/profile", icon: "bx-user", label: "Profile"},
         {path: "/classes", icon: "bx-chalkboard", label: "Lớp Học"},
         {path: "/courses", icon: "bx-book", label: "Học Phần"},
         {path: "/tests", icon: "bx-task", label: "Bài Kiểm Tra"},
-    ]
+    ];
     return (
         <div className="container-xxl flex-grow-1 container-p-y">
             {/* <!-- Header --> */}
@@ -328,7 +328,7 @@ const ProfilePage = () => {
             </div>
             {/* <!--/ User Profile Content --> */}
         </div>
-    )
-}
+    );
+};
 
-export default ProfilePage
+export default ProfilePage;

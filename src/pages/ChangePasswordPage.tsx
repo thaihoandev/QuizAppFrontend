@@ -1,28 +1,28 @@
-import React from "react"
-import {useForm} from "react-hook-form"
-import {yupResolver} from "@hookform/resolvers/yup"
-import * as yup from "yup"
-import NavigationMenuProfile from "@/components/NavigationMenuProfile"
-import PasswordField from "@/components/formFields/PasswordField"
-import {Button} from "react-bootstrap"
-import {changePasswordschema} from "@/schemas/authSchema"
+import React from "react";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import NavigationMenuProfile from "@/components/NavigationMenuProfile";
+import PasswordField from "@/components/formFields/PasswordField";
+import {Button} from "react-bootstrap";
+import {changePasswordschema} from "@/schemas/authSchema";
 
 const ChangePasswordPage = () => {
     const testMenuItems = [
         {path: "/settings", icon: "bx-cog", label: "Settings"},
         {path: "/change-password", icon: "bx-lock", label: "Change Password"},
-    ]
+    ];
 
     const {
         register,
         handleSubmit,
         formState: {errors},
-    } = useForm({resolver: yupResolver(changePasswordschema)})
+    } = useForm({resolver: yupResolver(changePasswordschema)});
 
     const onSubmit = (data: any) => {
-        console.log("Mật khẩu đã được cập nhật", data)
+        console.log("Mật khẩu đã được cập nhật", data);
         // Thêm logic cập nhật mật khẩu vào API nếu cần
-    }
+    };
 
     return (
         <div
@@ -96,7 +96,7 @@ const ChangePasswordPage = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ChangePasswordPage
+export default ChangePasswordPage;

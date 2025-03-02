@@ -1,18 +1,18 @@
-import {useForm} from "react-hook-form"
-import {yupResolver} from "@hookform/resolvers/yup"
-import {loginSchema} from "@/schemas/authSchema"
-import InputField from "@/components/formFields/InputField"
-import PasswordField from "@/components/formFields/PasswordField"
-import {Link, useNavigate} from "react-router-dom"
-import {useState} from "react"
-import {useAuth} from "@/hooks/useAuth"
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {loginSchema} from "@/schemas/authSchema";
+import InputField from "@/components/formFields/InputField";
+import PasswordField from "@/components/formFields/PasswordField";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {useAuth} from "@/hooks/useAuth";
 
 const FormLogin = () => {
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const {login} = useAuth()
+    const {login} = useAuth();
 
     const {
         register,
@@ -20,20 +20,20 @@ const FormLogin = () => {
         formState: {errors},
     } = useForm({
         resolver: yupResolver(loginSchema),
-    })
+    });
 
     const onSubmit = async (data: any) => {
-        setLoading(true)
-        setErrorMessage("")
+        setLoading(true);
+        setErrorMessage("");
         try {
-            await login(data.username, data.password)
-            navigate("/") // Chuyển hướng khi đăng nhập thành công
+            await login(data.username, data.password);
+            navigate("/"); // Chuyển hướng khi đăng nhập thành công
         } catch (error) {
-            setErrorMessage(error as string)
+            setErrorMessage(error as string);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
@@ -112,7 +112,7 @@ const FormLogin = () => {
                 </p>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default FormLogin
+export default FormLogin;

@@ -1,19 +1,19 @@
-import React from "react"
-import {useNavigate, useLocation} from "react-router-dom"
+import React from "react";
+import {useNavigate, useLocation} from "react-router-dom";
 
 interface MenuItem {
-    path: string
-    icon: string
-    label: string
+    path: string;
+    icon: string;
+    label: string;
 }
 
 interface NavigationMenuProps {
-    menuItems: MenuItem[]
+    menuItems: MenuItem[];
 }
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({menuItems}) => {
-    const navigate = useNavigate()
-    const location = useLocation()
+    const navigate = useNavigate();
+    const location = useLocation();
 
     return (
         <div className="nav-align-top">
@@ -33,7 +33,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({menuItems}) => {
                 ))}
             </ul>
         </div>
-    )
-}
+    );
+};
 
-export default NavigationMenu
+export default NavigationMenu;

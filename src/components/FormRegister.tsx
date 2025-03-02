@@ -1,27 +1,27 @@
-import {useForm} from "react-hook-form"
-import {yupResolver} from "@hookform/resolvers/yup"
-import {registerSchema} from "@/schemas/authSchema"
-import TextInput from "@/components/formFields/InputField"
-import PasswordInput from "@/components/formFields/PasswordField"
-import {Link, useNavigate} from "react-router-dom"
-import {useState} from "react"
-import {useAuth} from "@/hooks/useAuth"
-import {useGoogleLogin} from "@react-oauth/google"
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {registerSchema} from "@/schemas/authSchema";
+import TextInput from "@/components/formFields/InputField";
+import PasswordInput from "@/components/formFields/PasswordField";
+import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {useAuth} from "@/hooks/useAuth";
+import {useGoogleLogin} from "@react-oauth/google";
 
 const FormRegister = () => {
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     // ✅ Lấy hàm register từ Zustand thay vì từ Context
-    const {register: registerUser, loginWithGoogle} = useAuth()
+    const {register: registerUser, loginWithGoogle} = useAuth();
     const {
         register,
         handleSubmit,
         formState: {errors},
     } = useForm({
         resolver: yupResolver(registerSchema),
-    })
+    });
 
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
@@ -37,18 +37,18 @@ const FormRegister = () => {
 
     // Xử lý submit form đăng ký
     const onSubmit = async (data: any) => {
-        setLoading(true)
-        setErrorMessage("")
+        setLoading(true);
+        setErrorMessage("");
 
         try {
-            await registerUser(data.username, data.email, data.password)
-            navigate("/") // Chuyển hướng sau khi đăng ký thành công
+            await registerUser(data.username, data.email, data.password);
+            navigate("/"); // Chuyển hướng sau khi đăng ký thành công
         } catch (error) {
-            setErrorMessage(error as string)
+            setErrorMessage(error as string);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <div className="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
@@ -163,7 +163,7 @@ const FormRegister = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default FormRegister
+export default FormRegister;

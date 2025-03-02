@@ -1,17 +1,17 @@
-import React, {Suspense} from "react"
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
-import MainLayout from "@/layouts/MainLayout"
-import AuthLayout from "@/layouts/AuthLayout"
-import Home from "@/pages/Home"
-import Login from "@/pages/LoginPage"
-import Register from "@/pages/RegisterPage"
-import NotFound from "@/pages/NotFoundPage"
-import ProfilePage from "@/pages/ProfilePage"
-import ClassesPage from "@/pages/ClassesPage"
-import CoursesPage from "@/pages/CoursesPage"
-import TestsPage from "@/pages/TestsPage"
-import SettingProfilePage from "@/pages/SettingProfilePage"
-import ChangePasswordPage from "@/pages/ChangePasswordPage"
+import React, {Suspense} from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import MainLayout from "@/layouts/MainLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+import Home from "@/pages/Home";
+import Login from "@/pages/LoginPage";
+import Register from "@/pages/RegisterPage";
+import NotFound from "@/pages/NotFoundPage";
+import ProfilePage from "@/pages/ProfilePage";
+import ClassesPage from "@/pages/ClassesPage";
+import CoursesPage from "@/pages/CoursesPage";
+import TestsPage from "@/pages/TestsPage";
+import SettingProfilePage from "@/pages/SettingProfilePage";
+import ChangePasswordPage from "@/pages/ChangePasswordPage";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -24,6 +24,8 @@ const AppRoutes: React.FC = () => {
                         <Route path="/classes" element={<ClassesPage />} />
                         <Route path="/courses" element={<CoursesPage />} />
                         <Route path="/tests" element={<TestsPage />} />
+                        <Route path="/achievements" element={<TestsPage />} />
+
                         <Route
                             path="/settings"
                             element={<SettingProfilePage />}
@@ -41,7 +43,7 @@ const AppRoutes: React.FC = () => {
                 </Routes>
             </Suspense>
         </Router>
-    )
-}
+    );
+};
 
-export default AppRoutes
+export default AppRoutes;

@@ -1,5 +1,5 @@
-import React from "react"
-import {Link} from "react-router-dom"
+import React from "react";
+import {Link} from "react-router-dom";
 
 const NotFoundPage = () => {
     return (
@@ -8,7 +8,7 @@ const NotFoundPage = () => {
                 <h1 style={{lineHeight: "6rem", fontSize: "6rem"}}>404</h1>
                 <h4 className="mb-2">Page Not Found ⚠️</h4>
                 <p className="mb-6">
-                    We couldn't find the page you are looking for
+                    We couldn&apos;t find the page you are looking for
                 </p>
 
                 <Link to="/" className="btn btn-primary">
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default NotFoundPage
+export default NotFoundPage;

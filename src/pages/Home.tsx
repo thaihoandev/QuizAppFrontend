@@ -1,16 +1,16 @@
-import {useEffect} from "react"
+import {useEffect} from "react";
 
 const Home = () => {
     useEffect(() => {
-        const script = document.createElement("script")
-        script.src = "/assets/js/app-academy-course.js"
-        script.async = true
-        document.body.appendChild(script)
+        const script = document.createElement("script");
+        script.src = "/assets/js/app-academy-course.js";
+        script.async = true;
+        document.body.appendChild(script);
 
         return () => {
-            document.body.removeChild(script) // Cleanup khi unmount
-        }
-    }, [])
+            document.body.removeChild(script); // Cleanup khi unmount
+        };
+    }, []);
     return (
         <div className="container-xxl flex-grow-1 container-p-y">
             <div className="app-academy">
@@ -779,7 +779,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

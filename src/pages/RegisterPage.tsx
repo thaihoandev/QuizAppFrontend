@@ -1,5 +1,5 @@
-import FormRegister from "@/components/FormRegister"
-import React from "react"
+import FormRegister from "@/components/FormRegister";
+import React from "react";
 
 const RegisterPage = () => {
     return (
@@ -23,7 +23,7 @@ const RegisterPage = () => {
                 <FormRegister />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default RegisterPage
+export default RegisterPage;

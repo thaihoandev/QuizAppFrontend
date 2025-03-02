@@ -1,11 +1,11 @@
-import axios from "axios"
+import axios from "axios";
 
-const API_URL = process.env.REACT_APP_BASE_API_URL + "/auth"
+const API_URL = process.env.REACT_APP_BASE_API_URL + "/auth";
 
 interface UserRequestDTO {
-    username: string
-    email: string
-    password: string
+    username: string;
+    email: string;
+    password: string;
 }
 
 // API đăng nhập
@@ -14,21 +14,21 @@ export const loginApi = async (username: string, password: string) => {
         const response = await axios.post(`${API_URL}/login`, {
             username,
             password,
-        })
-        return response.data
+        });
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            throw error.response?.data?.message || "Login failed"
+            throw error.response?.data?.message || "Login failed";
         }
-        throw "An unexpected error occurred"
+        throw "An unexpected error occurred";
     }
-}
+};
 
 // API đăng ký
 export const registerApi = async (userData: UserRequestDTO) => {
     try {
-        const response = await axios.post(`${API_URL}/register`, userData)
-        return response.data
+        const response = await axios.post(`${API_URL}/register`, userData);
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             // Try to get the error message from different possible locations
@@ -38,16 +38,16 @@ export const registerApi = async (userData: UserRequestDTO) => {
                 (typeof error.response.data === "string"
                     ? error.response.data
                     : null) || // Plain string
-                "Registration failed" // Fallback
+                "Registration failed"; // Fallback
 
-            throw errorMessage
+            throw errorMessage;
         }
 
         throw error instanceof Error
             ? error.message
-            : "An unexpected error occurred"
+            : "An unexpected error occurred";
     }
-}
+};
 
 // API login Google
 export const loginGoogleApi = async (access_token: string) => {
@@ -60,8 +60,8 @@ export const loginGoogleApi = async (access_token: string) => {
                     "Content-Type": "application/json",
                 },
             },
-        )
-        return response.data
+        );
+        return response.data;
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
             const errorMessage =
@@ -70,13 +70,13 @@ export const loginGoogleApi = async (access_token: string) => {
                 (typeof error.response.data === "string"
                     ? error.response.data
                     : null) ||
-                "Google login failed"
+                "Google login failed";
 
-            throw errorMessage
+            throw errorMessage;
         }
 
         throw error instanceof Error
             ? error.message
-            : "An unexpected error occurred"
+            : "An unexpected error occurred";
     }
-}
+};
