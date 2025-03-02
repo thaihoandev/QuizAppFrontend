@@ -12,10 +12,13 @@ import CoursesPage from "@/pages/CoursesPage";
 import TestsPage from "@/pages/TestsPage";
 import SettingProfilePage from "@/pages/SettingProfilePage";
 import ChangePasswordPage from "@/pages/ChangePasswordPage";
+import ScrollToTop from "@/components/ScrollToTop";
+import AchievementPage from "@/pages/AchievementPage";
 
 const AppRoutes: React.FC = () => {
     return (
         <Router>
+            <ScrollToTop />
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route element={<MainLayout />}>
@@ -24,7 +27,10 @@ const AppRoutes: React.FC = () => {
                         <Route path="/classes" element={<ClassesPage />} />
                         <Route path="/courses" element={<CoursesPage />} />
                         <Route path="/tests" element={<TestsPage />} />
-                        <Route path="/achievements" element={<TestsPage />} />
+                        <Route
+                            path="/achievements"
+                            element={<AchievementPage />}
+                        />
 
                         <Route
                             path="/settings"

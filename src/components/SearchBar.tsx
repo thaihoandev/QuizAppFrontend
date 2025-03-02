@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import {searchQuizzes} from "../services/searchService"; // Import service gọi API
+import {useNavigate} from "react-router-dom"; // Import useNavigate để điều hướng
 
 interface SearchResult {
     quizId: string;
@@ -9,6 +10,13 @@ interface SearchResult {
     hostId: string | null;
 }
 
+// Hàm cắt ngắn mô tả nếu quá dài
+const truncateText = (text: string, maxLength: number) => {
+    return text.length > maxLength
+        ? text.substring(0, maxLength) + "..."
+        : text;
+};
+
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
@@ -16,6 +24,7 @@ const SearchBar = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const searchInputRef = useRef<HTMLInputElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate(); // Hook để điều hướng trang
 
     // Debounce để hạn chế gọi API khi người dùng gõ nhanh
     useEffect(() => {
@@ -26,7 +35,7 @@ const SearchBar = () => {
                 setSuggestions([]);
                 setIsDropdownOpen(false);
             }
-        }, 500);
+        }, 300);
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchQuery]);
@@ -35,7 +44,7 @@ const SearchBar = () => {
     const fetchSearchResults = async (query: string) => {
         try {
             const data = await searchQuizzes(query);
-            setSuggestions(data); // Cập nhật danh sách quiz từ API
+            setSuggestions(data);
             setIsDropdownOpen(true);
             setActiveIndex(-1);
         } catch (error) {
@@ -54,10 +63,14 @@ const SearchBar = () => {
     // Xử lý khi chọn một gợi ý
     const handleSelectSuggestion = (index: number) => {
         if (index >= 0 && index < suggestions.length) {
-            setSearchQuery(suggestions[index].title); // Hiển thị title của quiz
+            const selectedQuiz = suggestions[index];
+            setSearchQuery(selectedQuiz.title); // Hiển thị title trong ô input
             setSuggestions([]);
             setIsDropdownOpen(false);
             setActiveIndex(-1);
+
+            // Chuyển hướng đến trang quiz chi tiết
+            navigate(`/quizzes/${selectedQuiz.quizId}`);
         }
     };
 
@@ -130,21 +143,30 @@ const SearchBar = () => {
             </div>
 
             {isDropdownOpen && (
-                <ul className="dropdown-menu show w-100 position-absolute">
+                <ul className="dropdown-menu show w-100 position-absolute shadow-lg">
                     {suggestions.length > 0 ? (
                         suggestions.map((result, index) => (
-                            <li key={result.quizId}>
+                            <li key={result.quizId} className="px-2">
                                 <button
-                                    className={`dropdown-item ${index === activeIndex ? "active" : ""}`}
+                                    className={`dropdown-item d-flex align-items-start p-2 ${index === activeIndex ? "active" : ""}`}
                                     onMouseDown={() =>
                                         handleSelectSuggestion(index)
                                     }
                                 >
-                                    <strong>{result.title}</strong>
-                                    <br />
-                                    <small className="text-muted">
-                                        {result.description}
-                                    </small>
+                                    <div className="me-2">
+                                        <i className="bx bx-book-open text-primary fs-5"></i>
+                                    </div>
+                                    <div className="text-start">
+                                        <strong className="text-dark d-block">
+                                            {result.title}
+                                        </strong>
+                                        <small className="text-muted d-block">
+                                            {truncateText(
+                                                result.description,
+                                                50,
+                                            )}
+                                        </small>
+                                    </div>
                                 </button>
                             </li>
                         ))

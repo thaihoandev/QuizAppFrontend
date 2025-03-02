@@ -10,14 +10,14 @@ const Navbar = () => {
                 className="navbar-nav-right d-flex align-items-center w-100"
                 id="navbar-collapse"
             >
-                {/* 🔎 Search Bar Component */}
-                <SearchBar />
+                {/* 🔎 Search Bar - Căn trái */}
+                <div className="search-container me-auto w-50">
+                    <SearchBar />
+                </div>
 
-                <ul className="navbar-nav flex-row align-items-center ms-5">
-                    {/* 🔔 Notifications Component */}
+                {/* 🔔 Notifications & 👤 User - Căn phải */}
+                <ul className="navbar-nav flex-row align-items-center ms-auto">
                     <NotificationHeader />
-
-                    {/* 👤 User Dropdown */}
                     <UserDropdown />
                 </ul>
             </div>
