@@ -1,10 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from "@/hooks/useAuth";
-
+import {getCurrentUser} from "@/services/userService";
 const UserDropdown = () => {
     const navigate = useNavigate();
     const {user, logout} = useAuth(); // Lấy thông tin user và hàm logout từ Zustand
+    const [profile, setProfile] = useState<any>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchUserProfile = async () => {
+            try {
+                const data = await getCurrentUser();
+                setProfile(data);
+            } catch (err: any) {
+                setError("Không thể tải thông tin người dùng");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserProfile();
+    }, []);
 
     const handleLogout = () => {
         logout(); // Xóa trạng thái user trong Zustand
@@ -21,12 +39,12 @@ const UserDropdown = () => {
                 <div className="avatar avatar-online">
                     <img
                         src={
-                            user?.avatar
-                                ? user.avatar
+                            profile?.avatar && profile.avatar.trim() !== ""
+                                ? profile.avatar
                                 : "/assets/img/avatars/unknown.jpg"
                         }
                         className="rounded-circle"
-                        alt={user?.name}
+                        alt={profile?.name}
                     />
                 </div>
             </a>
@@ -38,22 +56,23 @@ const UserDropdown = () => {
                                 <div className="avatar avatar-online">
                                     <img
                                         src={
-                                            user?.avatar
-                                                ? user.avatar
+                                            profile?.avatar &&
+                                            profile.avatar.trim() !== ""
+                                                ? profile.avatar
                                                 : "/assets/img/avatars/unknown.jpg"
                                         }
                                         className="w-px-40 h-auto rounded-circle"
-                                        alt={user?.name || "Unknown"}
+                                        alt={profile?.name || "Unknown"}
                                     />
                                 </div>
                             </div>
                             <div className="flex-grow-1">
                                 <h6 className="mb-0">
-                                    {user?.name || "Guest"}
+                                    {profile?.name || "Guest"}
                                 </h6>{" "}
                                 {/* ✅ Hiển thị username */}
                                 <small className="text-body-secondary">
-                                    {user?.username}
+                                    {profile?.username}
                                 </small>
                             </div>
                         </div>

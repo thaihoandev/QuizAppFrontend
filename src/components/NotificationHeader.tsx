@@ -12,22 +12,22 @@ const NotificationHeader = () => {
     const [notifications, setNotifications] = useState<Notification[]>([]);
 
     useEffect(() => {
-        fetchNotifications();
+        // fetchNotifications();
     }, []);
 
     // Gọi API để lấy danh sách thông báo từ backend
-    const fetchNotifications = async () => {
-        try {
-            const response = await fetch("https://your-api.com/notifications"); // Thay URL API thực tế
-            if (!response.ok) {
-                throw new Error("Failed to fetch notifications");
-            }
-            const data = await response.json();
-            setNotifications(data);
-        } catch (error) {
-            console.error("Error fetching notifications:", error);
-        }
-    };
+    // const fetchNotifications = async () => {
+    //     try {
+    //         const response = await fetch("https://your-api.com/notifications"); // Thay URL API thực tế
+    //         if (!response.ok) {
+    //             throw new Error("Failed to fetch notifications");
+    //         }
+    //         const data = await response.json();
+    //         setNotifications(data);
+    //     } catch (error) {
+    //         console.error("Error fetching notifications:", error);
+    //     }
+    // };
 
     return (
         <li className="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
