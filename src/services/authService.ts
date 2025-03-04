@@ -1,6 +1,8 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
+import {useAuthStore} from "@/store/authStore";
 
-const API_URL = process.env.REACT_APP_BASE_API_URL + "/auth";
+const API_URL = `${process.env.REACT_APP_BASE_API_URL}/auth`;
 
 interface UserRequestDTO {
     username: string;
@@ -8,75 +10,99 @@ interface UserRequestDTO {
     password: string;
 }
 
-// API đăng nhập
+// ✅ API đăng nhập
 export const loginApi = async (username: string, password: string) => {
     try {
-        const response = await axios.post(`${API_URL}/login`, {
+        const response = await axiosInstance.post(`${API_URL}/login`, {
             username,
             password,
         });
         return response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            throw error.response?.data?.message || "Login failed";
-        }
-        throw "An unexpected error occurred";
+        handleApiError(error, "Login failed");
     }
 };
 
-// API đăng ký
+// ✅ API đăng ký
 export const registerApi = async (userData: UserRequestDTO) => {
     try {
-        const response = await axios.post(`${API_URL}/register`, userData);
+        const response = await axiosInstance.post(
+            `${API_URL}/register`,
+            userData,
+        );
         return response.data;
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            // Try to get the error message from different possible locations
-            const errorMessage =
-                error.response.data?.message || // Standard structure
-                error.response.data?.error || // Alternative structure
-                (typeof error.response.data === "string"
-                    ? error.response.data
-                    : null) || // Plain string
-                "Registration failed"; // Fallback
-
-            throw errorMessage;
-        }
-
-        throw error instanceof Error
-            ? error.message
-            : "An unexpected error occurred";
+        handleApiError(error, "Registration failed");
     }
 };
 
-// API login Google
+// ✅ API đăng nhập bằng Google
 export const loginGoogleApi = async (access_token: string) => {
     try {
-        const response = await axios.post(
+        const response = await axiosInstance.post(
             `${API_URL}/google`,
             {accessToken: access_token},
             {
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: {"Content-Type": "application/json"},
             },
         );
         return response.data;
     } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            const errorMessage =
-                error.response.data?.message ||
-                error.response.data?.error ||
-                (typeof error.response.data === "string"
-                    ? error.response.data
-                    : null) ||
-                "Google login failed";
-
-            throw errorMessage;
-        }
-
-        throw error instanceof Error
-            ? error.message
-            : "An unexpected error occurred";
+        handleApiError(error, "Google login failed");
     }
+};
+
+// ✅ API làm mới Access Token
+export const refreshToken = async (): Promise<string | null> => {
+    try {
+        const refreshToken = useAuthStore.getState().user?.refreshToken;
+        if (!refreshToken) throw new Error("No refresh token available");
+
+        const response = await axiosInstance.post(`${API_URL}/refresh-token`, {
+            refreshToken,
+        });
+
+        const newAccessToken = response.data.accessToken;
+
+        // Cập nhật token mới vào Zustand
+        useAuthStore.setState((state) => ({
+            user: state.user
+                ? {...state.user, accessToken: newAccessToken}
+                : null,
+        }));
+
+        // Cập nhật header cho axiosInstance
+        axiosInstance.defaults.headers.common["Authorization"] =
+            `Bearer ${newAccessToken}`;
+
+        return newAccessToken;
+    } catch (error) {
+        console.error("Lỗi khi refresh token:", error);
+
+        // Nếu refresh token thất bại, logout user
+        useAuthStore.getState().logout();
+        return null;
+    }
+};
+
+/**
+ * ✅ Hàm xử lý lỗi API chung
+ */
+const handleApiError = (error: any, defaultMessage: string) => {
+    if (axios.isAxiosError(error) && error.response) {
+        // <-- Sử dụng axios.isAxiosError(error) thay vì axiosInstance.isAxiosError(error)
+        const errorMessage =
+            error.response.data?.message ||
+            error.response.data?.error ||
+            (typeof error.response.data === "string"
+                ? error.response.data
+                : null) ||
+            defaultMessage;
+
+        throw new Error(errorMessage);
+    }
+
+    throw new Error(
+        error instanceof Error ? error.message : "An unexpected error occurred",
+    );
 };

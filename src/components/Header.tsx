@@ -1,13 +1,13 @@
 import {useEffect, useState, MouseEvent} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
-const Header = () => {
+const Header = ({profile}: {profile: any}) => {
     const [menuCollapsed, setMenuCollapsed] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState<string>("");
     const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
     const [isHovered, setIsHovered] = useState(false);
     const location = useLocation();
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (menuCollapsed && !isHovered) {
             document.body.classList.add("layout-menu-collapsed");
@@ -118,81 +118,112 @@ const Header = () => {
                     </Link>
                 </li>
 
-                <li className="menu-header small">
-                    <span
-                        className="menu-header-text"
-                        data-i18n="Charts & Maps"
-                    >
-                        Lession
-                    </span>
-                </li>
+                {profile ? (
+                    <>
+                        <li className="menu-header small">
+                            <span
+                                className="menu-header-text"
+                                data-i18n="Charts & Maps"
+                            >
+                                Lession
+                            </span>
+                        </li>
 
-                <li
-                    className={`menu-item ${
-                        isActive("/courses") ||
-                        isActive("/classes") ||
-                        isActive("/tests")
-                            ? "active"
-                            : ""
-                    } ${isSubmenuOpen("my-category") ? "open" : ""}`}
-                >
-                    <a
-                        href="#"
-                        className="menu-link menu-toggle"
-                        onClick={(e) => toggleSubmenu(e, "my-category")}
-                    >
-                        <i className="menu-icon icon-base bx bx-chart"></i>
-                        <div data-i18n="My Category">My Category</div>
-                    </a>
-                    <ul className="menu-sub">
                         <li
-                            className={`menu-item ${isActive("/courses") ? "active" : ""}`}
+                            className={`menu-item ${
+                                isActive("/courses") ||
+                                isActive("/classes") ||
+                                isActive("/quizzes")
+                                    ? "active"
+                                    : ""
+                            } ${isSubmenuOpen("my-category") ? "open" : ""}`}
                         >
-                            <Link
-                                to="/courses"
-                                className="menu-link"
-                                onClick={() => handleMenuItemClick("/courses")}
+                            <a
+                                href="#"
+                                className="menu-link menu-toggle"
+                                onClick={(e) => toggleSubmenu(e, "my-category")}
                             >
-                                <div data-i18n="Courses">Courses</div>
-                            </Link>
+                                <i className="menu-icon icon-base bx bx-chart"></i>
+                                <div data-i18n="My Category">My Category</div>
+                            </a>
+                            <ul className="menu-sub">
+                                <li
+                                    className={`menu-item ${isActive("/courses") ? "active" : ""}`}
+                                >
+                                    <Link
+                                        to="/courses"
+                                        className="menu-link"
+                                        onClick={() =>
+                                            handleMenuItemClick("/courses")
+                                        }
+                                    >
+                                        <div data-i18n="Courses">Courses</div>
+                                    </Link>
+                                </li>
+                                <li
+                                    className={`menu-item ${isActive("/classes") ? "active" : ""}`}
+                                >
+                                    <Link
+                                        to="/classes"
+                                        className="menu-link"
+                                        onClick={() =>
+                                            handleMenuItemClick("/classes")
+                                        }
+                                    >
+                                        <div data-i18n="Classes">Classes</div>
+                                    </Link>
+                                </li>
+                                <li
+                                    className={`menu-item ${isActive("/quizzes") ? "active" : ""}`}
+                                >
+                                    <Link
+                                        to="/quizzes"
+                                        className="menu-link"
+                                        onClick={() =>
+                                            handleMenuItemClick("/quizzes")
+                                        }
+                                    >
+                                        <div data-i18n="Quizzes">Quizzes</div>
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
-                        <li
-                            className={`menu-item ${isActive("/classes") ? "active" : ""}`}
-                        >
-                            <Link
-                                to="/classes"
-                                className="menu-link"
-                                onClick={() => handleMenuItemClick("/classes")}
-                            >
-                                <div data-i18n="Classes">Classes</div>
-                            </Link>
-                        </li>
-                        <li
-                            className={`menu-item ${isActive("/tests") ? "active" : ""}`}
-                        >
-                            <Link
-                                to="/tests"
-                                className="menu-link"
-                                onClick={() => handleMenuItemClick("/tests")}
-                            >
-                                <div data-i18n="Tests">Tests</div>
-                            </Link>
-                        </li>
-                    </ul>
-                </li>
 
-                <li
-                    className={`menu-item ${isActive("/achievements") ? "active" : ""}`}
-                >
-                    <Link
-                        to="/achievements"
-                        className="menu-link"
-                        onClick={() => handleMenuItemClick("/achievements")}
-                    >
-                        <i className="menu-icon icon-base bx bx-map-alt"></i>
-                        <div data-i18n="Achievements">Achievements</div>
-                    </Link>
-                </li>
+                        <li
+                            className={`menu-item ${isActive("/achievements") ? "active" : ""}`}
+                        >
+                            <Link
+                                to="/achievements"
+                                className="menu-link"
+                                onClick={() =>
+                                    handleMenuItemClick("/achievements")
+                                }
+                            >
+                                <i className="menu-icon icon-base bx bx-map-alt"></i>
+                                <div data-i18n="Achievements">Achievements</div>
+                            </Link>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li className="menu-header small">
+                            <span
+                                className="menu-header-text"
+                                data-i18n="More infomation"
+                            >
+                                More infomation
+                            </span>
+                        </li>
+                        <div className="d-flex justify-content-center align-items-center p-3 w-100">
+                            <button
+                                onClick={() => navigate("/login")}
+                                className=" btn btn-primary w-100"
+                            >
+                                Login
+                            </button>
+                        </div>
+                    </>
+                )}
             </ul>
         </aside>
     );

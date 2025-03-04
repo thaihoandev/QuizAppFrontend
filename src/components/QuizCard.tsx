@@ -61,7 +61,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
                                     <img
                                         src={
                                             quiz.host.avatarUrl ||
-                                            "/assets/img/avatars/unknown.jpg"
+                                            "/assets/img/avatars/unknown.jpgx"
                                         }
                                         alt="Host Avatar"
                                         className="rounded-circle"

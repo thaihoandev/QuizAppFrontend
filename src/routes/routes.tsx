@@ -9,11 +9,11 @@ import NotFound from "@/pages/NotFoundPage";
 import ProfilePage from "@/pages/ProfilePage";
 import ClassesPage from "@/pages/ClassesPage";
 import CoursesPage from "@/pages/CoursesPage";
-import TestsPage from "@/pages/TestsPage";
 import SettingProfilePage from "@/pages/SettingProfilePage";
 import ChangePasswordPage from "@/pages/ChangePasswordPage";
 import ScrollToTop from "@/components/ScrollToTop";
 import AchievementPage from "@/pages/AchievementPage";
+import QuizzesPage from "@/pages/QuizzesPage";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -26,7 +26,7 @@ const AppRoutes: React.FC = () => {
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/classes" element={<ClassesPage />} />
                         <Route path="/courses" element={<CoursesPage />} />
-                        <Route path="/tests" element={<TestsPage />} />
+                        <Route path="/quizzes" element={<QuizzesPage />} />
                         <Route
                             path="/achievements"
                             element={<AchievementPage />}

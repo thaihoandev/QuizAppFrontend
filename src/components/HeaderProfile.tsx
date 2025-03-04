@@ -1,5 +1,4 @@
 const HeaderProfile = ({profile}: {profile: any}) => {
-    console.log(profile);
     return (
         <div className="row">
             <div className="col-12">

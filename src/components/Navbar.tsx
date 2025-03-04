@@ -1,9 +1,10 @@
-import React from "react";
 import UserDropdown from "./UserDropdown";
 import NotificationHeader from "./NotificationHeader";
 import SearchBar from "./SearchBar"; // Import SearchBar
+import {useNavigate} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({profile}: {profile: any}) => {
+    const navigate = useNavigate();
     return (
         <nav className="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme">
             <div
@@ -17,8 +18,21 @@ const Navbar = () => {
 
                 {/* 🔔 Notifications & 👤 User - Căn phải */}
                 <ul className="navbar-nav flex-row align-items-center ms-auto">
-                    <NotificationHeader />
-                    <UserDropdown />
+                    {profile ? (
+                        <>
+                            <NotificationHeader />
+                            <UserDropdown profile={profile} />
+                        </>
+                    ) : (
+                        <div className="flex">
+                            <button
+                                onClick={() => navigate("/login")}
+                                className=" btn btn-outline-primary"
+                            >
+                                Login
+                            </button>
+                        </div>
+                    )}
                 </ul>
             </div>
         </nav>
