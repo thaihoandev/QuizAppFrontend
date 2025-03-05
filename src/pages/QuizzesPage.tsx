@@ -1,9 +1,10 @@
 import HeaderProfile from "@/components/HeaderProfile";
 import NavigationMenuProfile from "@/components/NavigationMenuProfile";
-import React from "react";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getCurrentUser} from "@/services/userService";
+import {getQuizzesByUser} from "@/services/quizService"; // New import
 import {useAuth} from "@/hooks/useAuth";
+import QuizSubCard from "@/components/QuizSubCard";
 
 const QuizzesPage = () => {
     const testMenuItems = [
@@ -12,33 +13,52 @@ const QuizzesPage = () => {
         {path: "/courses", icon: "bx-book", label: "Courses"},
         {path: "/quizzes", icon: "bx-task", label: "Quizzes"},
     ];
-    const {user} = useAuth(); // Lấy thông tin user từ Zustand
+
+    const {user} = useAuth();
     const [profile, setProfile] = useState<any>(null);
+    const [quizzes, setQuizzes] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const fetchUserProfile = async () => {
+        const fetchData = async () => {
             try {
-                const data = await getCurrentUser();
-                console.log("data", data);
-                setProfile(data);
+                // Fetch user profile
+                const profileData = await getCurrentUser();
+                setProfile(profileData);
+                // Fetch user quizzes if user exists
+                if (profileData?.userId) {
+                    const quizzesData = await getQuizzesByUser(
+                        profileData.userId,
+                    );
+                    setQuizzes(quizzesData);
+                }
             } catch (err: any) {
-                setError("Không thể tải thông tin người dùng");
+                setError("Failed to load user information or quizzes");
+                console.error(err);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchUserProfile();
-    }, []); // Không cần phụ thuộc vào `user?.id` vì API `/me` tự lấy từ token
+        fetchData();
+    }, []);
+
+    // Separate quizzes by status
+    const publishedQuizzes = quizzes.filter(
+        (quiz) => quiz.status === "PUBLISHED",
+    );
+    const draftQuizzes = quizzes.filter((quiz) => quiz.status === "DRAFT");
+    const archivedQuizzes = quizzes.filter(
+        (quiz) => quiz.status === "ARCHIVED",
+    );
+
     return (
         <div className="container-xxl flex-grow-1 container-p-y">
             <HeaderProfile profile={profile} />
-            {/* <!--/ Header --> */}
 
-            {/* <!-- Navbar pills --> */}
             <NavigationMenuProfile menuItems={testMenuItems} />
+
             <div className="row">
                 <div className="col-xl-12">
                     <div className="nav-align-top nav-tabs-shadow">
@@ -49,15 +69,15 @@ const QuizzesPage = () => {
                                     className="nav-link active"
                                     role="tab"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#navs-justified-home"
-                                    aria-controls="navs-justified-home"
+                                    data-bs-target="#navs-justified-published"
+                                    aria-controls="navs-justified-published"
                                     aria-selected="true"
                                 >
                                     <span className="d-none d-sm-inline-flex align-items-center">
                                         <i className="icon-base bx bx-home icon-sm me-1_5"></i>
-                                        Home
+                                        Published
                                         <span className="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ms-1_5">
-                                            3
+                                            {publishedQuizzes.length}
                                         </span>
                                     </span>
                                     <i className="icon-base bx bx-home icon-sm d-sm-none"></i>
@@ -69,13 +89,16 @@ const QuizzesPage = () => {
                                     className="nav-link"
                                     role="tab"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#navs-justified-profile"
-                                    aria-controls="navs-justified-profile"
+                                    data-bs-target="#navs-justified-draft"
+                                    aria-controls="navs-justified-draft"
                                     aria-selected="false"
                                 >
                                     <span className="d-none d-sm-inline-flex align-items-center">
                                         <i className="icon-base bx bx-user icon-sm me-1_5"></i>
-                                        Profile
+                                        Draft
+                                        <span className="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ms-1_5">
+                                            {draftQuizzes.length}
+                                        </span>
                                     </span>
                                     <i className="icon-base bx bx-user icon-sm d-sm-none"></i>
                                 </button>
@@ -86,13 +109,16 @@ const QuizzesPage = () => {
                                     className="nav-link"
                                     role="tab"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#navs-justified-messages"
-                                    aria-controls="navs-justified-messages"
+                                    data-bs-target="#navs-justified-archived"
+                                    aria-controls="navs-justified-archived"
                                     aria-selected="false"
                                 >
                                     <span className="d-none d-sm-inline-flex align-items-center">
                                         <i className="icon-base bx bx-message-square icon-sm me-1_5"></i>
-                                        Messages
+                                        Archived
+                                        <span className="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger ms-1_5">
+                                            {archivedQuizzes.length}
+                                        </span>
                                     </span>
                                     <i className="icon-base bx bx-message-square icon-sm d-sm-none"></i>
                                 </button>
@@ -101,58 +127,30 @@ const QuizzesPage = () => {
                         <div className="tab-content">
                             <div
                                 className="tab-pane fade show active"
-                                id="navs-justified-home"
+                                id="navs-justified-published"
                                 role="tabpanel"
                             >
-                                <p>
-                                    Icing pastry pudding oat cake. Lemon drops
-                                    cotton candy caramels cake caramels sesame
-                                    snaps powder. Bear claw candy topping.
-                                </p>
-                                <p className="mb-0">
-                                    Tootsie roll fruitcake cookie. Dessert
-                                    topping pie. Jujubes wafer carrot cake
-                                    jelly. Bonbon jelly-o jelly-o ice cream
-                                    jelly beans candy canes cake bonbon. Cookie
-                                    jelly beans marshmallow jujubes sweet.
-                                </p>
+                                {publishedQuizzes.map((quiz) => (
+                                    <QuizSubCard key={quiz.id} quiz={quiz} />
+                                ))}
                             </div>
                             <div
                                 className="tab-pane fade"
-                                id="navs-justified-profile"
+                                id="navs-justified-draft"
                                 role="tabpanel"
                             >
-                                <p>
-                                    Donut dragée jelly pie halvah. Danish
-                                    gingerbread bonbon cookie wafer candy oat
-                                    cake ice cream. Gummies halvah tootsie roll
-                                    muffin biscuit icing dessert gingerbread.
-                                    Pastry ice cream cheesecake fruitcake.
-                                </p>
-                                <p className="mb-0">
-                                    Jelly-o jelly beans icing pastry cake cake
-                                    lemon drops. Muffin muffin pie tiramisu
-                                    halvah cotton candy liquorice caramels.
-                                </p>
+                                {draftQuizzes.map((quiz) => (
+                                    <QuizSubCard key={quiz.id} quiz={quiz} />
+                                ))}
                             </div>
                             <div
                                 className="tab-pane fade"
-                                id="navs-justified-messages"
+                                id="navs-justified-archived"
                                 role="tabpanel"
                             >
-                                <p>
-                                    Oat cake chupa chups dragée donut toffee.
-                                    Sweet cotton candy jelly beans macaroon
-                                    gummies cupcake gummi bears cake chocolate.
-                                </p>
-                                <p className="mb-0">
-                                    Cake chocolate bar cotton candy apple pie
-                                    tootsie roll ice cream apple pie brownie
-                                    cake. Sweet roll icing sesame snaps caramels
-                                    danish toffee. Brownie biscuit dessert
-                                    dessert. Pudding jelly jelly-o tart brownie
-                                    jelly.
-                                </p>
+                                {archivedQuizzes.map((quiz) => (
+                                    <QuizSubCard key={quiz.id} quiz={quiz} />
+                                ))}
                             </div>
                         </div>
                     </div>

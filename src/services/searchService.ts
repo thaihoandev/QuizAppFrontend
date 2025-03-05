@@ -1,3 +1,4 @@
+import {handleApiError} from "@/utils/apiErrorHandler";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_BASE_API_URL + "/search";
@@ -10,9 +11,6 @@ export const searchQuizzes = async (query: string) => {
         );
         return response.data; // Trả về danh sách quiz
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            throw error.response?.data?.message || "Search failed";
-        }
-        throw "An unexpected error occurred";
+        handleApiError(error, "Search failed");
     }
 };

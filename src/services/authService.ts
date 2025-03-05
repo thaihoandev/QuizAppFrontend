@@ -1,6 +1,7 @@
 import axios from "axios";
 import axiosInstance from "./axiosInstance";
 import {useAuthStore} from "@/store/authStore";
+import {handleApiError} from "@/utils/apiErrorHandler";
 
 const API_URL = `${process.env.REACT_APP_BASE_API_URL}/auth`;
 
@@ -83,26 +84,4 @@ export const refreshToken = async (): Promise<string | null> => {
         useAuthStore.getState().logout();
         return null;
     }
-};
-
-/**
- * ✅ Hàm xử lý lỗi API chung
- */
-const handleApiError = (error: any, defaultMessage: string) => {
-    if (axios.isAxiosError(error) && error.response) {
-        // <-- Sử dụng axios.isAxiosError(error) thay vì axiosInstance.isAxiosError(error)
-        const errorMessage =
-            error.response.data?.message ||
-            error.response.data?.error ||
-            (typeof error.response.data === "string"
-                ? error.response.data
-                : null) ||
-            defaultMessage;
-
-        throw new Error(errorMessage);
-    }
-
-    throw new Error(
-        error instanceof Error ? error.message : "An unexpected error occurred",
-    );
 };

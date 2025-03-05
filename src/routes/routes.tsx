@@ -14,6 +14,7 @@ import ChangePasswordPage from "@/pages/ChangePasswordPage";
 import ScrollToTop from "@/components/ScrollToTop";
 import AchievementPage from "@/pages/AchievementPage";
 import QuizzesPage from "@/pages/QuizzesPage";
+import QuizManagementPage from "@/pages/QuizManagementPage";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -27,6 +28,10 @@ const AppRoutes: React.FC = () => {
                         <Route path="/classes" element={<ClassesPage />} />
                         <Route path="/courses" element={<CoursesPage />} />
                         <Route path="/quizzes" element={<QuizzesPage />} />
+                        <Route
+                            path="/quizzes/:quizId"
+                            element={<QuizManagementPage />}
+                        />
                         <Route
                             path="/achievements"
                             element={<AchievementPage />}
