@@ -1,10 +1,10 @@
-import HeaderProfile from "@/components/HeaderProfile";
+import HeaderProfile from "@/components/headers/HeaderProfile";
 import NavigationMenuProfile from "@/components/NavigationMenuProfile";
 import React, {useEffect, useState} from "react";
 import {getCurrentUser} from "@/services/userService";
 import {getQuizzesByUser} from "@/services/quizService"; // New import
 import {useAuth} from "@/hooks/useAuth";
-import QuizSubCard from "@/components/QuizSubCard";
+import QuizSubCard from "@/components/cards/QuizSubCard";
 
 const QuizzesPage = () => {
     const testMenuItems = [

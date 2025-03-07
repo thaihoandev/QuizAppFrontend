@@ -2,14 +2,9 @@ import axios from "axios";
 import axiosInstance from "./axiosInstance";
 import {useAuthStore} from "@/store/authStore";
 import {handleApiError} from "@/utils/apiErrorHandler";
+import {UserRequestDTO} from "@/interfaces";
 
 const API_URL = `${process.env.REACT_APP_BASE_API_URL}/auth`;
-
-interface UserRequestDTO {
-    username: string;
-    email: string;
-    password: string;
-}
 
 // ✅ API đăng nhập
 export const loginApi = async (username: string, password: string) => {
@@ -58,11 +53,18 @@ export const refreshToken = async (): Promise<string | null> => {
     try {
         const refreshToken = useAuthStore.getState().user?.refreshToken;
         if (!refreshToken) throw new Error("No refresh token available");
-
-        const response = await axiosInstance.post(`${API_URL}/refresh-token`, {
-            refreshToken,
-        });
-
+        const response = await axiosInstance.post(
+            `${API_URL}/refresh-token`,
+            {
+                refreshToken,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        );
+        console.log("response:", response);
         const newAccessToken = response.data.accessToken;
 
         // Cập nhật token mới vào Zustand

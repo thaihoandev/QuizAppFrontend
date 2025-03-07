@@ -6,7 +6,7 @@ import {getCurrentUser} from "@/services/userService";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 
-const MainLayout = () => {
+const SingleLayout = () => {
     const [profile, setProfile] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -38,17 +38,10 @@ const MainLayout = () => {
     return (
         <div className="layout-wrapper layout-content-navbar">
             <div className="layout-container">
-                <Header profile={profile} />
-                <div className="layout-page">
-                    <Navbar profile={profile} />
-                    <div className="wrapper-content">
-                        <Outlet /> {/* Render trang con */}
-                    </div>
-                    <Footer />
-                </div>
+                <Outlet /> {/* Render trang con */}
             </div>
         </div>
     );
 };
 
-export default MainLayout;
+export default SingleLayout;

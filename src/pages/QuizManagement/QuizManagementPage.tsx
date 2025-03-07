@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {getQuestionsByQuizId} from "@/services/quizService";
-import QuestionCard from "@/components/QuestionCard";
+import QuestionCard from "@/components/cards/QuestionCard";
 import {useParams} from "react-router-dom";
 
 interface Option {
@@ -55,10 +55,15 @@ const QuizManagementPage: React.FC = () => {
             <div className="card shadow-sm rounded-3 p-3">
                 <div className="d-flex justify-content-between align-items-center">
                     <div>
-                        <h5 className="fw-bold">
+                        <h4 className="fw-bold d-flex align-items-center">
                             Nhận biết{" "}
-                            <span className="badge bg-secondary">Bản thảo</span>
-                        </h5>
+                            <span
+                                className="badge bg-transparent border border-secondary text-secondary rounded mx-2"
+                                style={{fontSize: "0.75rem"}}
+                            >
+                                Bản thảo
+                            </span>
+                        </h4>
                         <p className="text-muted mb-1">
                             Đánh giá • 9040_Ngô Hoàn • World Languages • Đại học
                             • 2 lần chơi • Dễ

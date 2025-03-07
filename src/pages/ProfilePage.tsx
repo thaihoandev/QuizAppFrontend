@@ -1,11 +1,11 @@
 import NavigationMenuProfile from "@/components/NavigationMenuProfile";
 import "@/assets/vendor/css/pages/page-profile.css";
-import HeaderProfile from "@/components/HeaderProfile";
+import HeaderProfile from "@/components/headers/HeaderProfile";
 
 import {useEffect, useState} from "react";
 import {getCurrentUser} from "@/services/userService";
 import {formatDateOnly, formatDateTime} from "@/utils/dateUtils";
-import QuizCard from "@/components/QuizCard";
+import QuizCard from "@/components/cards/QuizCard";
 
 const ProfilePage = () => {
     const profileMenuItems = [

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
-import QuizDropdown from "./QuizDropdown";
+import QuizDropdown from "../dropdowns/QuizDropdown";
 
 // Define types matching your Java model
 export interface UserDto {

@@ -3,16 +3,7 @@ import {persist, createJSONStorage} from "zustand/middleware";
 import {loginApi, loginGoogleApi, registerApi} from "@/services/authService";
 import axios from "axios";
 import {TokenResponse} from "@react-oauth/google";
-
-interface User {
-    id: string;
-    username: string;
-    email: string;
-    accessToken: string;
-    refreshToken: string;
-    avatar?: string;
-    name: string;
-}
+import {User} from "@/interfaces";
 
 interface AuthState {
     user: User | null;

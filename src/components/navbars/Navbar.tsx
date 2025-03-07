@@ -1,6 +1,6 @@
-import UserDropdown from "./UserDropdown";
-import NotificationHeader from "./NotificationHeader";
-import SearchBar from "./SearchBar"; // Import SearchBar
+import UserDropdown from "../dropdowns/UserDropdown";
+import NotificationHeader from "../NotificationHeader";
+import SearchBar from "../SearchBar"; // Import SearchBar
 import {useNavigate} from "react-router-dom";
 
 const Navbar = ({profile}: {profile: any}) => {

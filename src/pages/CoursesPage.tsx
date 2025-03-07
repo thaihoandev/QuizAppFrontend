@@ -1,4 +1,4 @@
-import HeaderProfile from "@/components/HeaderProfile";
+import HeaderProfile from "@/components/headers/HeaderProfile";
 import NavigationMenuProfile from "@/components/NavigationMenuProfile";
 import React from "react";
 import {useEffect, useState} from "react";

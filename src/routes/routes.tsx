@@ -14,7 +14,10 @@ import ChangePasswordPage from "@/pages/ChangePasswordPage";
 import ScrollToTop from "@/components/ScrollToTop";
 import AchievementPage from "@/pages/AchievementPage";
 import QuizzesPage from "@/pages/QuizzesPage";
-import QuizManagementPage from "@/pages/QuizManagementPage";
+import QuizManagementPage from "@/pages/QuizManagement/QuizManagementPage";
+import QuizEditorPage from "@/pages/QuizManagement/QuizEditorPage";
+import SingleLayout from "@/layouts/SingleLayout";
+import QuestionEditorPage from "@/pages/QuestionEditorPage";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -44,6 +47,16 @@ const AppRoutes: React.FC = () => {
                         <Route
                             path="/change-password"
                             element={<ChangePasswordPage />}
+                        />
+                    </Route>
+                    <Route element={<SingleLayout />}>
+                        <Route
+                            path="/quizzes/:quizId/edit"
+                            element={<QuizEditorPage />}
+                        />
+                        <Route
+                            path="/quizzes/:quizId/questions/:questionId"
+                            element={<QuestionEditorPage />}
                         />
                     </Route>
                     <Route element={<AuthLayout />}>
