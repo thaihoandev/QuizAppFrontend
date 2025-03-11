@@ -1,39 +1,20 @@
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {getQuestionsByQuizId, updateQuiz} from "@/services/quizService";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import QuestionEditorHeader from "@/components/headers/QuestionEditorHeader";
 import QuestionEditorSidebar from "@/components/sidebars/QuestionEditorSidebar";
 import QuestionEditorCard from "@/components/cards/QuestionEditorCard";
 import AddQuestionByTypeModal from "@/components/modals/AddQuestionByTypeModal";
-
-interface Option {
-    optionId: string;
-    optionText: string;
-    correct: boolean;
-    correctAnswer: string;
-}
-
-interface Question {
-    questionId: string;
-    questionType:
-        | "SINGLE_CHOICE"
-        | "MULTIPLE_CHOICE"
-        | "TRUE_FALSE"
-        | "FILL_IN_THE_BLANK";
-    questionText: string;
-    options: Option[];
-    timeLimit: number;
-    points: number;
-    imageUrl?: string;
-}
+import {Question} from "@/interfaces";
 
 const QuizEditorPage: React.FC = () => {
     const {quizId} = useParams<{quizId: string}>();
+    const navigate = useNavigate();
     const [questions, setQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [publishing, setPublishing] = useState(false); // Trạng thái xuất bản
+    const [publishing, setPublishing] = useState(false);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -74,88 +55,13 @@ const QuizEditorPage: React.FC = () => {
         );
     };
 
-    const addNewQuestion = (type: string) => {
-        let newQuestion: Question;
-        switch (type) {
-            case "MULTIPLE_CHOICE":
-                newQuestion = {
-                    questionId: `q${questions.length + 1}`,
-                    questionType: "MULTIPLE_CHOICE",
-                    questionText: "Câu hỏi mới (Nhiều lựa chọn)",
-                    options: [
-                        {
-                            optionId: "o1",
-                            optionText: "Lựa chọn 1",
-                            correct: true,
-                            correctAnswer: "Lựa chọn 1",
-                        },
-                        {
-                            optionId: "o2",
-                            optionText: "Lựa chọn 2",
-                            correct: false,
-                            correctAnswer: "",
-                        },
-                        {
-                            optionId: "o3",
-                            optionText: "Lựa chọn 3",
-                            correct: false,
-                            correctAnswer: "",
-                        },
-                        {
-                            optionId: "o4",
-                            optionText: "Lựa chọn 4",
-                            correct: false,
-                            correctAnswer: "",
-                        },
-                    ],
-                    timeLimit: 30,
-                    points: 1,
-                };
-                break;
-            case "TRUE_FALSE":
-                newQuestion = {
-                    questionId: `q${questions.length + 1}`,
-                    questionType: "TRUE_FALSE",
-                    questionText: "Câu hỏi mới (Đúng/Sai)",
-                    options: [
-                        {
-                            optionId: "o1",
-                            optionText: "Đúng",
-                            correct: true,
-                            correctAnswer: "Đúng",
-                        },
-                        {
-                            optionId: "o2",
-                            optionText: "Sai",
-                            correct: false,
-                            correctAnswer: "",
-                        },
-                    ],
-                    timeLimit: 30,
-                    points: 1,
-                };
-                break;
-            case "FILL_IN_THE_BLANK":
-                newQuestion = {
-                    questionId: `q${questions.length + 1}`,
-                    questionType: "FILL_IN_THE_BLANK",
-                    questionText: "Câu hỏi mới (Điền vào chỗ trống)",
-                    options: [
-                        {
-                            optionId: "o1",
-                            optionText: "Đáp án đúng",
-                            correct: true,
-                            correctAnswer: "Đáp án đúng",
-                        },
-                    ],
-                    timeLimit: 30,
-                    points: 1,
-                };
-                break;
-            default:
-                return;
-        }
-        setQuestions([...questions, newQuestion]);
+    // Chuyển hướng đến trang tạo câu hỏi mới khi chọn loại câu hỏi
+    const handleQuestionTypeSelection = (type: string) => {
+        if (!quizId) return;
+        // Đóng modal
+        setShowModal(false);
+        // Chuyển hướng đến trang tạo câu hỏi với loại câu hỏi được chọn
+        navigate(`/quizzes/${quizId}/questions/create?type=${type}`);
     };
 
     const handlePublish = async () => {
@@ -218,16 +124,48 @@ const QuizEditorPage: React.FC = () => {
                                 hỏi
                             </button>
                         </div>
-                        {questions.map((question, idx) => (
-                            <QuestionEditorCard
-                                key={idx}
-                                quizId={quizId ?? ""} // Truyền quizId vào đây
-                                question={question}
-                                index={idx}
-                                onTimeChange={handleTimeChange}
-                                onPointsChange={handlePointsChange}
-                            />
-                        ))}
+
+                        {loading ? (
+                            <div className="text-center py-4">
+                                <div
+                                    className="spinner-border text-primary"
+                                    role="status"
+                                >
+                                    <span className="visually-hidden">
+                                        Đang tải...
+                                    </span>
+                                </div>
+                                <p className="mt-2">Đang tải câu hỏi...</p>
+                            </div>
+                        ) : questions.length > 0 ? (
+                            questions.map((question, idx) => (
+                                <QuestionEditorCard
+                                    key={question.questionId}
+                                    quizId={quizId ?? ""}
+                                    question={question}
+                                    index={idx}
+                                    onTimeChange={handleTimeChange}
+                                    onPointsChange={handlePointsChange}
+                                />
+                            ))
+                        ) : (
+                            <div className="text-center py-4 card shadow-sm">
+                                <div className="card-body">
+                                    <p className="mb-3">
+                                        Chưa có câu hỏi nào. Hãy thêm câu hỏi
+                                        đầu tiên!
+                                    </p>
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => setShowModal(true)}
+                                    >
+                                        <i className="bx bx-plus-circle me-1"></i>{" "}
+                                        Thêm câu hỏi
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="d-flex justify-content-center mt-4">
                             <button
                                 className="btn btn-outline-primary me-2"
@@ -244,10 +182,11 @@ const QuizEditorPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {/* Cập nhật modal để sử dụng hàm handleQuestionTypeSelection mới */}
             <AddQuestionByTypeModal
                 show={showModal}
                 onHide={() => setShowModal(false)}
-                onAddQuestion={addNewQuestion}
+                onAddQuestion={handleQuestionTypeSelection}
             />
         </div>
     );

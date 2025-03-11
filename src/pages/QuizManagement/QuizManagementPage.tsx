@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {getQuestionsByQuizId} from "@/services/quizService";
 import QuestionCard from "@/components/cards/QuestionCard";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 interface Option {
     optionId: string;
@@ -73,9 +73,12 @@ const QuizManagementPage: React.FC = () => {
                         <button className="btn btn-outline-secondary">
                             ↩ Hoàn tác
                         </button>
-                        <button className="btn btn-outline-primary">
+                        <Link
+                            to={`/quizzes/${quizId}/edit`}
+                            className="btn btn-outline-primary"
+                        >
                             ✏ Chỉnh sửa
-                        </button>
+                        </Link>
                         <button className="btn btn-primary">📤 Xuất bản</button>
                     </div>
                 </div>

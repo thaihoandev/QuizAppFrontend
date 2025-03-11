@@ -1,3 +1,8 @@
+import {
+    POINTS_OPTIONS,
+    QUESTION_TYPE_LABELS,
+    TIME_LIMIT_OPTIONS,
+} from "@/constants/quizConstants";
 import {Question} from "@/interfaces";
 import React from "react";
 import {useNavigate} from "react-router-dom";
@@ -24,7 +29,7 @@ const QuestionEditorCard: React.FC<QuestionEditorCardProps> = ({
     const navigate = useNavigate();
 
     const handleEdit = () => {
-        navigate(`/quizzes/${quizId}/questions/${question.questionId}`, {
+        navigate(`/quizzes/${quizId}/questions/${question.questionId}/edit`, {
             state: {quizId, question},
         });
     };
@@ -38,7 +43,8 @@ const QuestionEditorCard: React.FC<QuestionEditorCardProps> = ({
                             <i className="bx bx-grid"></i>
                         </button>
                         <span className="badge bg-primary me-2">
-                            {index + 1}. {question.questionType}
+                            {index + 1}.{" "}
+                            {QUESTION_TYPE_LABELS[question.questionType]}
                         </span>
                         <div className="dropdown me-2">
                             <button
@@ -54,7 +60,7 @@ const QuestionEditorCard: React.FC<QuestionEditorCardProps> = ({
                                 className="dropdown-menu"
                                 aria-labelledby={`timeDropdown${index}`}
                             >
-                                {[10, 20, 30, 60, 120].map((time) => (
+                                {TIME_LIMIT_OPTIONS.map((time) => (
                                     <li key={time}>
                                         <button
                                             className="dropdown-item"
@@ -86,7 +92,7 @@ const QuestionEditorCard: React.FC<QuestionEditorCardProps> = ({
                                 className="dropdown-menu"
                                 aria-labelledby={`pointsDropdown${index}`}
                             >
-                                {[1, 2, 3, 5, 10].map((points) => (
+                                {POINTS_OPTIONS.map((points) => (
                                     <li key={points}>
                                         <button
                                             className="dropdown-item"

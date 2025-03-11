@@ -18,6 +18,7 @@ import QuizManagementPage from "@/pages/QuizManagement/QuizManagementPage";
 import QuizEditorPage from "@/pages/QuizManagement/QuizEditorPage";
 import SingleLayout from "@/layouts/SingleLayout";
 import QuestionEditorPage from "@/pages/QuestionEditorPage";
+import QuestionCreatePage from "@/pages/QuestionCreatePage";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -55,7 +56,11 @@ const AppRoutes: React.FC = () => {
                             element={<QuizEditorPage />}
                         />
                         <Route
-                            path="/quizzes/:quizId/questions/:questionId"
+                            path="/quizzes/:quizId/questions/create"
+                            element={<QuestionCreatePage />}
+                        />
+                        <Route
+                            path="/quizzes/:quizId/questions/:questionId/edit"
                             element={<QuestionEditorPage />}
                         />
                     </Route>
