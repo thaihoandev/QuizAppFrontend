@@ -13,8 +13,6 @@ const QuestionEditorPage: React.FC = () => {
 
     // Hàm xử lý khi lưu câu hỏi
     const handleSaveQuestion = async (updatedQuestion: Question) => {
-        console.log("Saving question:", updatedQuestion);
-
         try {
             await updateQuestion(quizId!, question.questionId, updatedQuestion);
             navigate(`/quizzes/${quizId}/edit`, {

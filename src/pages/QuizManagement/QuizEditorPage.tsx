@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {getQuestionsByQuizId, updateQuiz} from "@/services/quizService";
+import {
+    getQuestionsByQuizId,
+    publishedQuiz,
+    updateQuiz,
+} from "@/services/quizService";
 import {useParams, useNavigate} from "react-router-dom";
 import QuestionEditorHeader from "@/components/headers/QuestionEditorHeader";
 import QuestionEditorSidebar from "@/components/sidebars/QuestionEditorSidebar";
@@ -68,8 +72,9 @@ const QuizEditorPage: React.FC = () => {
         if (!quizId) return;
         setPublishing(true);
         try {
-            await updateQuiz(quizId, questions);
+            await publishedQuiz(quizId);
             alert("Bài quiz đã được xuất bản thành công!");
+            navigate(`/quizzes`);
         } catch (error) {
             alert("Có lỗi xảy ra khi xuất bản bài quiz!");
         } finally {
@@ -77,9 +82,14 @@ const QuizEditorPage: React.FC = () => {
         }
     };
 
+    const handleBack = () => {
+        navigate(`/quizzes/${quizId}`);
+    };
+
     return (
         <div className="container-fluid bg-light" style={{minHeight: "100vh"}}>
             <QuestionEditorHeader
+                onBack={handleBack}
                 onPublish={handlePublish}
                 publishing={publishing}
             />

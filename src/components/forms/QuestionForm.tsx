@@ -38,8 +38,6 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
             points: DEFAULT_POINTS,
         };
 
-        console.log(baseQuestion.questionType);
-
         switch (type) {
             case QUESTION_TYPES.MULTIPLE_CHOICE:
                 return {
@@ -48,25 +46,25 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                     options: [
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 1",
+                            optionText: "",
                             correct: true,
-                            correctAnswer: "Lựa chọn 1",
+                            correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 2",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 3",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 4",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
@@ -98,9 +96,9 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                     options: [
                         {
                             optionId: "",
-                            optionText: "Đáp án đúng",
+                            optionText: "",
                             correct: true,
-                            correctAnswer: "Đáp án đúng",
+                            correctAnswer: "",
                         },
                     ],
                 };
@@ -111,25 +109,25 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                     options: [
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 1",
+                            optionText: "",
                             correct: true,
-                            correctAnswer: "Lựa chọn 1",
+                            correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 2",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 3",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
                         {
                             optionId: "",
-                            optionText: "Lựa chọn 4",
+                            optionText: "",
                             correct: false,
                             correctAnswer: "",
                         },
@@ -184,12 +182,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
     };
 
     const handleOptionChange = (
-        optionId: string,
+        index: number, // Thay optionId bằng index
         field: keyof Option,
         value: string | boolean,
     ) => {
-        const newOptions = question.options.map((option) =>
-            option.optionId === optionId ? {...option, [field]: value} : option,
+        const newOptions = question.options.map((option, i) =>
+            i === index ? {...option, [field]: value} : option,
         );
         setQuestion({...question, options: newOptions});
     };
@@ -343,7 +341,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
 
                             return (
                                 <div
-                                    key={option.optionId}
+                                    key={index} // Dùng index làm key tạm thời trong chế độ tạo mới
                                     className="position-relative"
                                     style={{width: "220px", height: "180px"}}
                                 >
@@ -359,7 +357,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                                             onClick={() => {
                                                 if (isMultipleAnswers) {
                                                     handleOptionChange(
-                                                        option.optionId,
+                                                        index,
                                                         "correct",
                                                         !option.correct,
                                                     );
@@ -396,7 +394,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                                             value={option.optionText}
                                             onChange={(e) =>
                                                 handleOptionChange(
-                                                    option.optionId,
+                                                    index,
                                                     "optionText",
                                                     e.target.value,
                                                 )
@@ -411,9 +409,8 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                                                     ...question,
                                                     options:
                                                         question.options.filter(
-                                                            (opt) =>
-                                                                opt.optionId !==
-                                                                option.optionId,
+                                                            (_, i) =>
+                                                                i !== index,
                                                         ),
                                                 })
                                             }
@@ -434,40 +431,41 @@ const QuestionForm: React.FC<QuestionFormProps> = ({
                             );
                         })}
 
-                        {question.options.length < 5 && (
-                            <div
-                                className="d-flex justify-content-center align-items-center"
-                                style={{width: "100px", height: "180px"}}
-                            >
-                                <button
-                                    className="btn btn-outline-light rounded-circle"
-                                    onClick={() => {
-                                        const newOptionId = `o${question.options.length + 1}`;
-                                        setQuestion({
-                                            ...question,
-                                            options: [
-                                                ...question.options,
-                                                {
-                                                    optionId: newOptionId,
-                                                    optionText: "",
-                                                    correct: false,
-                                                    correctAnswer: "",
-                                                },
-                                            ],
-                                        });
-                                    }}
-                                    style={{
-                                        width: "40px",
-                                        height: "40px",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
+                        {question.options.length < 5 &&
+                            question.questionType ===
+                                QUESTION_TYPES.MULTIPLE_CHOICE && (
+                                <div
+                                    className="d-flex justify-content-center align-items-center"
+                                    style={{width: "100px", height: "180px"}}
                                 >
-                                    +
-                                </button>
-                            </div>
-                        )}
+                                    <button
+                                        className="btn btn-outline-light rounded-circle"
+                                        onClick={() => {
+                                            setQuestion({
+                                                ...question,
+                                                options: [
+                                                    ...question.options,
+                                                    {
+                                                        optionId: "", // Giữ rỗng vì đây là chế độ tạo mới
+                                                        optionText: "",
+                                                        correct: false,
+                                                        correctAnswer: "",
+                                                    },
+                                                ],
+                                            });
+                                        }}
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            )}
                     </div>
 
                     <div className="d-flex mt-4 justify-content-start">

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {getQuestionsByQuizId} from "@/services/quizService";
+import {getQuestionsByQuizId, publishedQuiz} from "@/services/quizService";
 import QuestionCard from "@/components/cards/QuestionCard";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 interface Option {
     optionId: string;
@@ -30,6 +30,8 @@ const QuizManagementPage: React.FC = () => {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [showAnswers, setShowAnswers] = useState(true);
     const [loading, setLoading] = useState(true);
+    const [publishing, setPublishing] = useState(false);
+    const navigate = useNavigate();
 
     // Fetch questions when component mounts or quizId changes
     useEffect(() => {
@@ -49,6 +51,19 @@ const QuizManagementPage: React.FC = () => {
         fetchQuestions();
     }, [quizId]); // Depend on quizId
 
+    const handlePublish = async () => {
+        if (!quizId) return;
+        setPublishing(true);
+        try {
+            await publishedQuiz(quizId);
+            alert("Bài quiz đã được xuất bản thành công!");
+            navigate(`/quizzes`);
+        } catch (error) {
+            alert("Có lỗi xảy ra khi xuất bản bài quiz!");
+        } finally {
+            setPublishing(false);
+        }
+    };
     return (
         <div className="container mt-4">
             {/* Quiz Header */}
@@ -79,7 +94,23 @@ const QuizManagementPage: React.FC = () => {
                         >
                             ✏ Chỉnh sửa
                         </Link>
-                        <button className="btn btn-primary">📤 Xuất bản</button>
+                        <button
+                            onClick={handlePublish}
+                            className="btn btn-primary btn-sm"
+                            disabled={publishing}
+                        >
+                            {publishing ? (
+                                <>
+                                    <i className="bx bx-loader bx-spin"></i>{" "}
+                                    Đang xuất bản
+                                </>
+                            ) : (
+                                <>
+                                    <i className="bx bx-cloud-upload"></i> Xuất
+                                    bản
+                                </>
+                            )}
+                        </button>
                     </div>
                 </div>
             </div>

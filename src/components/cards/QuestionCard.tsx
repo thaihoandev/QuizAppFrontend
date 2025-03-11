@@ -1,3 +1,4 @@
+import {QUESTION_TYPES} from "@/constants/quizConstants";
 import React from "react";
 
 interface Option {
@@ -34,13 +35,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
 }) => {
     const renderQuestionType = () => {
         switch (question.questionType) {
-            case "SINGLE_CHOICE":
+            case QUESTION_TYPES.SINGLE_CHOICE:
                 return "Choose one answer";
-            case "MULTIPLE_CHOICE":
+            case QUESTION_TYPES.MULTIPLE_CHOICE:
                 return "Choose one or more answers";
-            case "TRUE_FALSE":
+            case QUESTION_TYPES.TRUE_FALSE:
                 return "True/False";
-            case "FILL_IN_THE_BLANK":
+            case QUESTION_TYPES.FILL_IN_THE_BLANK:
                 return "Fill in the blank";
             default:
                 return "Type of question";
@@ -49,10 +50,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
 
     const getInputType = () => {
         switch (question.questionType) {
-            case "SINGLE_CHOICE":
-            case "TRUE_FALSE":
+            case QUESTION_TYPES.SINGLE_CHOICE:
+            case QUESTION_TYPES.TRUE_FALSE:
                 return "radio";
-            case "MULTIPLE_CHOICE":
+            case QUESTION_TYPES.MULTIPLE_CHOICE:
                 return "checkbox";
             default:
                 return "radio";

@@ -18,7 +18,8 @@ export interface Option {
     optionId: string;
     optionText: string;
     correct: boolean;
-    correctAnswer: string;
+    value?: boolean;
+    correctAnswer?: string;
 }
 
 export interface Question {

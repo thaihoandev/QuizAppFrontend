@@ -36,3 +36,19 @@ export const updateQuiz = async (quizId: string, questions: Question[]) => {
         handleApiError(error, "Failed to fetch questions for quiz");
     }
 };
+
+export const publishedQuiz = async (quizId: string) => {
+    try {
+        const response = await axiosInstance.put(
+            `/quizzes/${quizId}/published`,
+            {
+                headers: {"Content-Type": "application/json"},
+            },
+        );
+        console.log(response.data);
+
+        return response.data; // Assuming API returns an array of questions
+    } catch (error) {
+        handleApiError(error, "Failed to fetch questions for quiz");
+    }
+};
